@@ -1,16 +1,15 @@
 <template>
   <div>
-    {{food}}
-    <span>233</span>
+    <p>AShow: {{content}}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    food: {
+    content: {
       type: String,
-      default: 'apple'
+      default: ''
     }
   },
   data(){

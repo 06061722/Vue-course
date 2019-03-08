@@ -1,17 +1,17 @@
 <template>
-  <div>
-    {{food}}
-    <span>233</span>
-  </div>
+  <div>{{name}}</div>
 </template>
 
 <script>
 export default {
   props: {
-    food: {
+    name: {
       type: String,
-      default: 'apple'
+      default: 'JoJo'
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log(to.name, from.name);
   },
   data(){
     return {

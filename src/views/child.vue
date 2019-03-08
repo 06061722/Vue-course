@@ -1,18 +1,9 @@
 <template>
-  <div>
-    {{food}}
-    <span>233</span>
-  </div>
+  <div><span>I am child</span></div>
 </template>
 
 <script>
 export default {
-  props: {
-    food: {
-      type: String,
-      default: 'apple'
-    }
-  },
   data(){
     return {
     }
