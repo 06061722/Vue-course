@@ -4,7 +4,8 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转到parent</button>
-    <button @click="getInfo">请求用户数据</button>
+    <button @click="getInfo" :style="`background: ${bgcolor}`">请求用户数据</button>
+    <img :src="url" alt="">
     <h1>{{food}}</h1>
   </div>
 </template>
@@ -36,6 +37,12 @@ export default {
   components: {
     HelloWorld
   },
+  data() {
+    return {
+      url: '',
+      bgcolor: ''
+    }
+  },
   methods: {
     handleClick(type) {
       if (type === "back") {
@@ -64,7 +71,8 @@ export default {
       // })
       getUserInfo({ userId: 21}).then(res => {
         console.log(res);
-        
+        this.url = res.data.img_base64
+        this.bgcolor = res.data.color
       })
     }
   }

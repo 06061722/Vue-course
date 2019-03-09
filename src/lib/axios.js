@@ -20,7 +20,7 @@ class HttpRequest {
       if (url) this.queue++ 
       if (this.queue) {
       // Spin.show() 遮罩
-      console.log('233');
+      // console.log('233');
       }
       
       return config
