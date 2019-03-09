@@ -31,9 +31,9 @@ export default [
     }
   },
   {
-    path: '/argu/:name',
-    name: 'argu',
-    component: () => import('@/views/argu.vue'),
+    path: '/count-to',
+    name: 'count-to',
+    component: () => import('@/views/count-to.vue'),
     props: true,
   },
   {
