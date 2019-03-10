@@ -34,7 +34,11 @@ export default [
     path: '/count-to',
     name: 'count-to',
     component: () => import('@/views/count-to.vue'),
-    props: true,
+  },
+  {
+    path: '/split-pane',
+    name: 'split-pane',
+    component: () => import('@/views/split-pane.vue'),
   },
   {
     path: '/parent',
