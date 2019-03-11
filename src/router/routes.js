@@ -36,6 +36,11 @@ export default [
     component: () => import('@/views/count-to.vue'),
   },
   {
+    path: '/menu-page',
+    name: 'menu-page',
+    component: () => import('@/views/menu-page.vue'),
+  },
+  {
     path: '/split-pane',
     name: 'split-pane',
     component: () => import('@/views/split-pane.vue'),

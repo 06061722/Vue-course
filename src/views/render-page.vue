@@ -36,18 +36,18 @@ export default {
       console.log('ended!');
       
     },
-    renderFunc(h, number) {
+    // renderFunc(h, number) {
       // return h('i', {
       //   style: {
       //     color: 'pink',
       //   }
       // }, name)
-      return (
+      // return (
         // <CountTo  on-click={this.handleClick}  on-on-animation-end={this.handleEnd} endVal={number} style={{color: 'pink'}}></CountTo>
-        <CountTo  nativeOn-click={this.handleClick}  on-on-animation-end={this.handleEnd} endVal={number} style={{color: 'pink'}}></CountTo>
+        // <CountTo  nativeOn-click={this.handleClick}  on-on-animation-end={this.handleEnd} endVal={number} style={{color: 'pink'}}></CountTo>
 
-      )
-    }
+      // )
+    // }
   },
 }
 </script>
