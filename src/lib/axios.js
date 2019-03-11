@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { baseUrl } from '@/config'
+import { getToken } from '@/lib/util'
+
 class HttpRequest {
-  constructor (baseURL = baseUrl) {
-    this.baseURL =  baseURL
+  constructor(baseURL = baseUrl) {
+    this.baseURL = baseURL
     this.queue = 0
   }
-  getInsideConfig () {
+  getInsideConfig() {
     const config = {
       baseURL: this.baseURL,
       Headers: {
@@ -14,42 +16,45 @@ class HttpRequest {
     }
     return config
   }
-  interceptors (instance, url) {
+  interceptors(instance, url) {
     instance.interceptors.request.use(config => {
       // 添加全局的loading
-      if (url) this.queue++ 
+      if (url) this.queue++
       if (this.queue) {
-      // Spin.show() 遮罩
-      // console.log('233');
+        // Spin.show() 遮罩
+        // console.log('233');
       }
-      
+      config.headers['Authorization'] = getToken()
       return config
     }, error => {
       return Promise.reject(error)
     })
 
     instance.interceptors.response.use(res => {
-      this.queue--   
+      this.queue--
       if (!this.queue) {
         //关闭遮罩
       }
-      const { data, status } = res
-      return { data, status }
+      // console.log(res);
+      const { data } = res
+      // console.log(data);
+      
+      return data
     }, error => {
-      this.queue--  
+      this.queue--
       if (!this.queue) {
         //关闭遮罩
-      }   
+      }
       return Promise.reject(error)
     })
   }
-  request (options) {
+  request(options) {
     const instance = axios.create()
     options = Object.assign(this.getInsideConfig(), options)   // Object.assign 合并对象，相同key值，用后者覆盖
-    
+
     this.interceptors(instance, options.url)
     return instance(options)
-  } 
+  }
 }
 
 export default HttpRequest

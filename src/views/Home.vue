@@ -6,6 +6,7 @@
     <button @click="handleClick('push')">跳转到parent</button>
     <button @click="getInfo" :style="`background: ${bgcolor}`">请求用户数据</button>
     <img :src="url" alt="">
+    <button @click="handleLogout">退出登录</button>
     <h1>{{food}}</h1>
   </div>
 </template>
@@ -14,6 +15,7 @@
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
 import { getUserInfo } from '@/api/user'
+import { mapActions } from "vuex";
 // import axios from "axios";
 
 export default {
@@ -44,6 +46,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['logout']),
     handleClick(type) {
       if (type === "back") {
         this.$router.back();
@@ -74,6 +77,10 @@ export default {
         this.url = res.data.img_base64
         this.bgcolor = res.data.color
       })
+    },
+    handleLogout () {
+      this.logout()
+      this.$router.push({name: 'login'})
     }
   }
 };
