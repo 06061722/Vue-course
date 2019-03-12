@@ -1,14 +1,22 @@
 import Home from '@/views/Home.vue'
+import Layout from '@/views/layout.vue'
+
 
 export default [
   {
     path: '/',
     name: 'home',
-    alias: '/home_page',
-    component: Home,
-    props: route => ({
-      food: route.query.food
-    }),
+    // alias: '/home_page',
+    component: Layout,
+    children: [
+      {
+        path: 'home',
+        component: Home
+      }
+    ]
+    // props: route => ({
+    //   food: route.query.food
+    // }),
     // beforeEnter: (to, from, next) => {
     //   if (from.name === 'login') alert('这是从登陆页来的~')
     //   else alert('不是从登陆页来哦的~')

@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link :to="{name: 'home'}">Home</router-link>|
       <router-link :to="{name: 'about'}">About</router-link>
-    </div>
-    <transition-group :name="routerTransition">
+    </div> -->
+    <!-- <transition-group :name="routerTransition"> -->
       <router-view key="default"/>
       <router-view key="email" name="email"/>
       <router-view key="tel" name="tel"/>
-    </transition-group>
+    <!-- </transition-group> -->
   </div>
 </template>
 
@@ -29,6 +29,11 @@ export default {
 
 
 <style lang="stylus">
+html, body  
+  height 100%
+body
+  margin 0
+  
 .router-enter{
   opacity 0
 }
@@ -54,6 +59,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   // text-align: center;
   color: #2c3e50;
+  height 100%
 }
 
 #nav {
