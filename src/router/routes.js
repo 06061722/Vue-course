@@ -9,9 +9,13 @@ export default [
     // alias: '/home_page',
     component: Layout,
     children: [
+      // {
+      //   path: 'home',
+      //   component: Home
+      // },
       {
-        path: 'home',
-        component: Home
+        path: '/folder-tree',
+        component: () => import('@/views/folder-tree/folder-tree.vue')
       }
     ]
     // props: route => ({
@@ -21,7 +25,7 @@ export default [
     //   if (from.name === 'login') alert('这是从登陆页来的~')
     //   else alert('不是从登陆页来哦的~')
     //   next()
-    // } 
+    // }  
 
   },
   {
