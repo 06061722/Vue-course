@@ -63,6 +63,11 @@ export default [
     component: () => import('@/views/render-page.vue'),
   },
   {
+    path: '/upload',
+    name: 'upload',
+    component: () => import('@/views/upload.vue'),
+  },
+  {
     path: '/parent',
     name: parent,
     component: () => import('@/views/parent.vue'),
