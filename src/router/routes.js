@@ -68,6 +68,11 @@ export default [
     component: () => import('@/views/upload.vue'),
   },
   {
+    path: '/form',
+    name: 'form',
+    component: () => import('@/views/form.vue'),
+  },
+  {
     path: '/parent',
     name: parent,
     component: () => import('@/views/parent.vue'),

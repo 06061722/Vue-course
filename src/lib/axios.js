@@ -45,7 +45,7 @@ class HttpRequest {
       if (!this.queue) {
         //关闭遮罩
       }
-      return Promise.reject(error)
+      return Promise.reject(error.response.data)
     })
   }
   request(options) {

@@ -25,6 +25,8 @@ router.beforeEach((to, from, next) => {
   // console.log(token);
   
   if (token) {
+    // console.log(token);
+    
     store.dispatch('authorization', token).then(() => {
       if (to.name === 'login') next({ name: 'home'})
       else next()
@@ -34,8 +36,8 @@ router.beforeEach((to, from, next) => {
     })
   } else {
     if (to.name === 'login') next()
-    // else next({ name: 'login'})
-    else next()
+    else next({ name: 'login'})
+    // else next()
   }
 })
 
