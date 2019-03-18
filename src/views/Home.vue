@@ -12,7 +12,7 @@
       <Col></Col>
     </Row>
     <Row :gutter="10">
-      <Col span="12"></Col>
+      <Col span="12">{{ rules }}</Col>
       <Col span="12"></Col>
     </Row>
     <Row :gutter="10" class="blue">
@@ -21,6 +21,8 @@
       <Col :md="6" :sm="12" :xs="24"></Col>
       <Col :md="6" :sm="12" :xs="24"></Col>
     </Row>
+    <Button v-if="rules.edit_button">编辑</Button>
+    <Button v-if="rules.publish_button">发布</Button>
   </div>
 </template>
 
@@ -28,7 +30,7 @@
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
 import { getUserInfo } from "@/api/user";
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 // import axios from "axios";
 
 export default {
@@ -57,6 +59,11 @@ export default {
       url: "",
       bgcolor: ""
     };
+  },
+  computed: {
+    ...mapState({
+      rules: state => state.user.rules
+    })
   },
   methods: {
     ...mapActions(["logout"]),

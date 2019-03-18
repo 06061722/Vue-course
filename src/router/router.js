@@ -2,21 +2,22 @@ import Home from '@/views/Home.vue'
 import Layout from '@/views/layout.vue'
 
 
-export default [
+export const routerMap = [
   {
     path: '/',
     name: 'home',
     // alias: '/home_page',
     component: Layout,
     children: [
-      // {
-      //   path: 'home',
-      //   component: Home
-      // },
       {
-        path: '/folder-tree',
-        component: () => import('@/views/folder-tree/folder-tree.vue')
-      }
+        path: 'home',
+        name: 'home_index',
+        component: Home
+      },
+      // {
+      //   path: '/folder-tree',
+      //   component: () => import('@/views/folder-tree/folder-tree.vue')
+      // }
     ]
     // props: route => ({
     //   food: route.query.food
@@ -44,22 +45,22 @@ export default [
   },
   {
     path: '/count-to',
-    name: 'count-to',
+    name: 'count_to',
     component: () => import('@/views/count-to.vue'),
   },
   {
     path: '/menu-page',
-    name: 'menu-page',
+    name: 'menu_page',
     component: () => import('@/views/menu-page.vue'),
   },
   {
     path: '/split-pane',
-    name: 'split-pane',
+    name: 'split_pane',
     component: () => import('@/views/split-pane.vue'),
   },
   {
     path: '/render-page',
-    name: 'render-page',
+    name: 'render_page',
     component: () => import('@/views/render-page.vue'),
   },
   {
@@ -74,17 +75,19 @@ export default [
   },
   {
     path: '/parent',
-    name: parent,
+    name: 'parent',
     component: () => import('@/views/parent.vue'),
     children: [
       {
-      path: 'child',
+      path: '/child',
+      name: 'child',
       component: () => import('@/views/child.vue')
       }
     ]
   },
   {
     path: '/named_view',
+    name: 'named_view',
     components: {
       default: () => import('@/views/child.vue'),
       email: () => import('@/views/email.vue'),
@@ -93,18 +96,32 @@ export default [
   },
   {
     path: '/main',
+    name: 'main',
     redirect: {
       name: to => '/'
     }
   },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: () => import('@/views/login.vue')
+  // },
+  {
+    path: '/store',
+    name: 'store',
+    component: () => import('@/views/store.vue')
+  },
+  // {
+  //   path: '*',
+  //   component: () => import('@/views/error_404.vue')
+  // }
+]
+
+export const routes = [
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/login.vue')
-  },
-  {
-    path: '/store',
-    component: () => import('@/views/store.vue')
   },
   {
     path: '*',

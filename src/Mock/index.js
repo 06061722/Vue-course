@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import { getUserInfo } from './response/user'
+import { getUserInfo, login, authorization } from './response/user'
 import { getFileList, getFolderList, getTableData } from "./response/data";
 const Random = Mock.Random
 
@@ -7,6 +7,8 @@ const Random = Mock.Random
 Mock.mock(/\/getUserInfo/, getUserInfo)
 Mock.mock(/\/getFolderList/, getFolderList)
 Mock.mock(/\/getFileList/, getFileList)
+Mock.mock(/\/login/, login)
+Mock.mock(/\/authorization/, authorization)
 
 Mock.setup({
   timeout: 0

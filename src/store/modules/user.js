@@ -3,7 +3,8 @@ import { setToken } from '@/lib/util'
 
 
 const state = {
-  userName: 'Qiao'
+  userName: 'Qiao',
+  rules: {}
 }
 const getters = {
   firstLetter(state) {
@@ -13,6 +14,9 @@ const getters = {
 const mutations = {
   SET_USER_NAME(state, params) {
     state.userName = params
+  },
+  SET_RULES (state, rules) {
+    state.rules = rules
   }
 }
 const actions = {
@@ -49,7 +53,8 @@ const actions = {
           // console.log(res.data.token);
 
           setToken(res.data.token)
-          resolve()
+          resolve(res.data.rules.page)
+          commit("SET_RULES", res.data.rules.component)
         }
       }).catch(error => {
         reject(error)
