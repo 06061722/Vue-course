@@ -111,6 +111,16 @@ export const routerMap = [
     name: 'store',
     component: () => import('@/views/store.vue')
   },
+  {
+    path: '/icon-page',
+    name: 'icon_page',
+    component: () => import('@/views/icon-page.vue')
+  },
+  {
+    path: '/optimize',
+    name: 'optimize',
+    component: () => import('@/views/optimize.vue')
+  },
   // {
   //   path: '*',
   //   component: () => import('@/views/error_404.vue')

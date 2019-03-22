@@ -8,7 +8,7 @@ import clonedeep from 'clonedeep'
 Vue.use(Router)
 
 const router = new Router({
-  // routes
+  routes
 })
 
 // const HAS_LOGINED = false   
@@ -46,6 +46,7 @@ router.beforeEach((to, from, next) => {
     if (!store.state.router.hasGetRules) {
       store.dispatch("authorization").then(rules => {
         store.dispatch('concatRoutes', rules).then(routers => {
+          // console.log(routers);
           // console.log(routers);
           
           router.addRoutes(clonedeep(routers))

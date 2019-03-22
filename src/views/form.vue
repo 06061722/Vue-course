@@ -11,12 +11,28 @@
         <Button @click="handleSubmit" type="primary">提交</Button>
       </FormItem>
     </Form>-->
-    <form-group :list="formList" :url="url"></form-group>
+    <!-- <form-group :list="formList" :url="url"></form-group> -->
+    <Button @click="handleSubmit" type="primary">提交</Button>
+    <Button @click="handleReset">重置</Button>
+    <form-single
+      ref="formSingle"
+      v-for="(item, index) in formList"
+      :key="`form_${index}`"
+      :config="item"
+      :value-data="valueData"
+      :rule-data="ruleData"
+      :error-store="errStore"
+    ></form-single>
   </div>
 </template>
 
 <script>
+import FormSingle from "_c/form-single";
 import FormGroup from "_c/form-group";
+import formData from "@/Mock/response/form-data";
+import clonedeep from "clonedeep";
+import { sentFormData } from "@/api/data";
+
 // const validateName = (rule, value, callback) => {
 //   if (value !== "Qiao") {
 //     callback(new Error("Name error"));
@@ -26,80 +42,17 @@ import FormGroup from "_c/form-group";
 // };
 export default {
   components: {
-    FormGroup
+    FormGroup,
+    FormSingle
   },
   data() {
     return {
-      url: '/data/formData',
-      formList: [
-        {
-          name: "name",
-          type: "i-input",
-          value: "",
-          label: "姓名",
-          rule: [
-            {
-              required: true,
-              message: "Please fill in the user name",
-              trigger: "blur"
-            }
-          ]
-        },
-        {
-          name: "range",
-          type: "slider",
-          value: [10, 40],
-          range: true,
-          label: "范围"
-        },
-        {
-          name: "gender",
-          type: "i-select",
-          value: "",
-          label: "性别",
-          children: {
-            type: "i-option",
-            list: [
-              { value: "male", title: "男" },
-              { value: "female", title: "女" }
-            ]
-          }
-        },
-        {
-          name: "education",
-          type: "radio-group",
-          value: "",
-          label: "学历",
-          children: {
-            type: "radio",
-            list: [
-              { label: 1, title: "本科" },
-              { label: 2, title: "研究生" },
-              { label: 3, title: "博士" }
-            ]
-          }
-        },
-        {
-          name: "skill",
-          type: "checkbox-group",
-          value: [],
-          label: "技能",
-          children: {
-            type: "checkbox",
-            list: [
-              { label: 1, title: "Vue" },
-              { label: 2, title: "Nodejs" },
-              { label: 3, title: "Mysql" }
-            ]
-          }
-        },
-        {
-          name: "inWork",
-          type: "i-switch",
-          value: true,
-          label: "在职"
-        }
-      ]
+      url: "/data/formData",
+      formList: formData,
+      valueData: {},
+      ruleData: {},
+      errStore: {},
+      initValueData: {} 
       //   formData: {
       //     name: "",
       //     age: 23
@@ -130,6 +83,76 @@ export default {
     //     }
     //   });
     // }
+    handleSubmit() {
+      let isValid = true
+      this.$refs.formSingle.forEach(item => {
+        item.validate(valid => {
+          if (!valid) isValid = false
+        })
+      })
+      if (isValid) {
+        sentFormData({
+            url: this.url,
+            data: this.valueData
+          })
+            .then(res => {
+              console.log(res);
+
+              this.$emit("on-submit-success", res);
+            })
+            .catch(err => {
+              console.log(err);
+              this.$emit("on-submit-error", err);
+              for (let key in err) {
+                this.errorStore[key] = err[key];
+              }
+            });
+      }
+      // this.$refs.form.validate(valid => {
+      //   if (valid) {
+      //     sentFormData({
+      //       url: this.url,
+      //       data: this.valueList
+      //     })
+      //       .then(res => {
+      //         console.log(res);
+
+      //         this.$emit("on-submit-success", res);
+      //       })
+      //       .catch(err => {
+      //         console.log(err);
+      //         this.$emit("on-submit-error", err);
+      //         for (let key in err) {
+      //           this.errorStore[key] = err[key];
+      //         }
+      //       });
+      //   }
+      // });
+    },
+    handleReset() {
+      // console.log(this.initValueList);
+      // console.log(this.valueList);
+
+      this.valueData = clonedeep(this.initValueData);
+      // console.log(this.valueList);
+    },
+  
+  },
+  mounted() {
+    let valueData = {};
+    let ruleData = {};
+    let errorStore = {};
+    let initValueData = {}
+    formData.forEach(item => {
+      valueData[item.name] = item.value;
+      ruleData[item.name] = item.rule;
+      errorStore[item.name] = "";
+      initValueData[item.name] = item.value
+    });
+    this.valueData = valueData;
+    this.ruleData = ruleData;
+    this.errStore = errorStore;
+    this.initValueData = initValueData
   }
 };
 </script>

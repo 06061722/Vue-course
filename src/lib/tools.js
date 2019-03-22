@@ -1,6 +1,6 @@
-export const doCustomtimes = (times, resolve) => {
-  while(times) {
-    resolve()
-    times--
+export const doCustomtimes = (times, callback) => {
+  let i = -1
+  while(++i < times) {
+    callback(i)
   }
 }

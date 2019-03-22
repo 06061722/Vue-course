@@ -86,36 +86,7 @@ export default {
       this.initValueList = initValueList;
       this.errorStore = errorStore;
     },
-    handleSubmit() {
-      this.$refs.form.validate(valid => {
-        if (valid) {
-          sentFormData({
-            url: this.url,
-            data: this.valueList
-          }).then(res => {
-            console.log(res);
-            
-            this.$emit('on-submit-success', res)
-          }).catch(err => {
-            console.log(err);
-            this.$emit('on-submit-error', err)
-            for (let key in err) {
-              this.errorStore[key] = err[key]
-            }
-          })
-        }
-      })
-    },
-    handleReset() {
-      // console.log(this.initValueList);
-      // console.log(this.valueList);
-
-      this.valueList = clonedeep(this.initValueList);
-      // console.log(this.valueList);
-    },
-    handleFocus (name) {
-      this.errorStore[name] = ''
-    }
+    
   },
   mounted() {
     this.setInitValue();
