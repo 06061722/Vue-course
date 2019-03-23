@@ -1,24 +1,25 @@
 <template>
-  <div>{{name}}</div>
+  <div>
+    {{ $route.params.id }}
+  </div>
 </template>
 
 <script>
 export default {
-  props: {
-    name: {
-      type: String,
-      default: 'JoJo'
-    }
+  // props: {
+  //   id: {
+  //     type: String,
+  //     default: 'QiaoQiao'
+  //   }
+  // },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      // console.log(vm)
+    })
   },
-  beforeRouteUpdate(to, from, next) {
-    console.log(to.name, from.name);
-  },
-  data(){
-    return {
-    }
-  },
-  methods:{},
+  beforeRouteUpdate (to, from, next) {
+    console.log(to.name, from.name)
+    next()
+  }
 }
 </script>
-<style lang="stylus" scoped>
-</style>

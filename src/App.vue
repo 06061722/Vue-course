@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import {mapMutations} from "vuex";
+
 export default {
   data() {
     return {
@@ -20,11 +22,13 @@ export default {
     };
   },
   watch: {
-    $route(to) {
-      to.query &&
-        to.query.TransitionName &&
-        (this.routerTransition = to.query.TransitionName);
+    $route(newRoute) {
+      this.UPDATE_ROUTER(newRoute);
     }
+  },
+  methods: {
+    ...mapMutations(["UPDATE_ROUTER"]),
+
   }
 };
 </script>

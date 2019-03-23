@@ -93,7 +93,10 @@ export const authorization = () => {
           store: true,
           main: true,
           icon_page: true,
-          optimize: true
+          optimize: true,
+          component: true,
+          table_page: true,
+          params: true,
         },
         component: {
           edit_button: true,

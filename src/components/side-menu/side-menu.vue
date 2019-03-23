@@ -1,7 +1,7 @@
 <template>
   <div class="side-menu-wrapper">
     <slot></slot>
-    <Menu v-show="!collapsed" width="auto" theme="dark" @on-select="handleSelect">
+    <Menu ref="menu" :active-name="$route.name" :open-names='openNames' v-show="!collapsed" width="auto" theme="dark" @on-select="handleSelect">
       <template v-for="item in list">
         <re-submenu
           v-if="item.children"
@@ -13,7 +13,7 @@
         </re-submenu>
         <menu-item v-else :key="`menu_${item.name}`" :name="item.name">
           <Icon :type="item.icon"/>
-          {{ item.title }}
+          {{ item.meta.title }}
         </menu-item>
       </template>
     </Menu>
@@ -33,6 +33,8 @@
 <script>
 import ReSubmenu from "./re-submenu.vue";
 import ReDropdown from "./re-dropdown.vue";
+import { mapState } from 'vuex'
+import { getOpenArrByName } from "@/lib/util";
 export default {
   components: {
     ReSubmenu,
@@ -51,9 +53,29 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    ...mapState({
+      routers: state => state.router.routers
+    }),
+    openNames () {
+      // console.log(getOpenArrByName(this.$route.name, this.routers));
+      
+      return getOpenArrByName(this.$route.name, this.routers)
+    }
+  },
+  watch: {
+    openNames () {
+      this.$nextTick(() => {
+        this.$refs.menu.updateOpened()
+      })
+    }
+  },
   methods: {
     handleSelect(name) {
-      console.log(name);
+      // console.log(name);
+      this.$router.push({
+        name
+      })
     },
     handleClick(name) {
       console.log(name);
